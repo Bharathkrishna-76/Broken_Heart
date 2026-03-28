@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💔 Heartbreak Rehab — You'll Be Okay</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700;900&family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#ff2d78;--cyan:#00f5d4;--gold:#ffd166;--violet:#9b5de5;--blue:#4361ee;--green:#06d6a0;--orange:#ff6b35;--bg:#07060f;--glass:rgba(255,255,255,0.07);--gb:rgba(255,255,255,0.13);--text:#f0ecff;--muted:rgba(240,236,255,0.5);--acc:#4361ee;--glw:rgba(67,97,238,0.3);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Quicksand',sans-serif;overflow-x:hidden;min-height:100vh;transition:background 1.5s;}
+body.shake{animation:bShake 0.4s;}
+@keyframes bShake{0%,100%{transform:translate(0)}10%{transform:translate(-8px,4px)}30%{transform:translate(8px,-4px)}50%{transform:translate(-5px,2px)}70%{transform:translate(5px,-2px)}90%{transform:translate(-3px,1px)}}
+body.flash::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,0.22);pointer-events:none;z-index:9990;animation:fFade 0.4s forwards;}
+@keyframes fFade{from{opacity:1}to{opacity:0}}
+
+/* ORBS */
+.orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:0.28;pointer-events:none;z-index:0;animation:drift 18s ease-in-out infinite alternate;}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,var(--violet),transparent 70%);top:-200px;left:-200px;}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,var(--rose),transparent 70%);top:40%;right:-150px;animation-delay:-6s;}
+.orb3{width:600px;height:600px;background:radial-gradient(circle,var(--blue),transparent 70%);bottom:-200px;left:15%;animation-delay:-12s;}
+.orb4{width:350px;height:350px;background:radial-gradient(circle,var(--cyan),transparent 70%);top:55%;left:55%;animation-delay:-4s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(50px,-30px) scale(1.1)}100%{transform:translate(-30px,50px) scale(0.9)}}
+#sCV{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* GLASS */
+.glass{background:var(--glass);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border:1px solid var(--gb);border-radius:20px;position:relative;overflow:hidden;}
+.glass::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 55%);pointer-events:none;border-radius:inherit;}
+.gcard{background:rgba(255,255,255,0.055);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border:1px solid rgba(255,255,255,0.1);border-radius:18px;position:relative;overflow:hidden;transition:transform 0.35s cubic-bezier(.34,1.56,.64,1),box-shadow 0.35s;}
+.gcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);}
+.gcard:hover{transform:translateY(-7px);box-shadow:0 24px 60px rgba(0,0,0,0.45);}
+
+/* LAYOUT */
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+section{padding:90px 0;position:relative;z-index:1;}
+h1,h2,h3{font-family:'Raleway',sans-serif;font-weight:900;}
+.tag{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--cyan);font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.tag::before,.tag::after{content:'';flex:1;max-width:40px;height:1px;background:var(--cyan);opacity:0.4;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:990;padding:12px 28px;background:rgba(7,6,15,0.55);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+.nlogo{font-family:'Bebas Neue',cursive;font-size:20px;letter-spacing:2px;background:linear-gradient(90deg,var(--rose),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nlinks{display:flex;gap:22px;}
+.nlinks a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;}
+.nlinks a:hover{color:#fff;}
+#sbadge{font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:var(--cyan);transition:all 0.8s;}
+
+/* COMPANION */
+#companion{position:fixed;bottom:24px;left:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
+#cbub{background:rgba(14,12,30,0.92);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.12);border-radius:16px 16px 16px 4px;padding:12px 16px;font-size:13px;font-weight:600;color:var(--text);max-width:230px;line-height:1.5;opacity:0;transform:translateY(6px);transition:all 0.4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+#cbub.show{opacity:1;transform:translateY(0);}
+#cheart{width:64px;height:64px;border-radius:50%;background:rgba(255,45,120,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,45,120,0.3);display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer;animation:hbeat 2s ease-in-out infinite;transition:all 0.3s;box-shadow:0 0 20px rgba(255,45,120,0.2);}
+#cheart:hover{transform:scale(1.15);}
+@keyframes hbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}}
+#cheart.happy{animation:cHappy 0.5s ease;}
+#cheart.sad{animation:cSad 0.6s ease;}
+@keyframes cHappy{0%{transform:scale(1)}30%{transform:scale(1.4) rotate(10deg)}60%{transform:scale(0.9)}100%{transform:scale(1)}}
+@keyframes cSad{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* COMBO */
+#comboDsp{position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9998;font-family:'Bebas Neue',cursive;font-size:72px;letter-spacing:4px;pointer-events:none;text-align:center;opacity:0;text-shadow:0 0 40px currentColor;}
+#comboDsp.show{animation:comboPop 1.5s forwards;}
+@keyframes comboPop{0%{transform:translateX(-50%) scale(0.5);opacity:0}15%{transform:translateX(-50%) scale(1.3);opacity:1}70%{transform:translateX(-50%) scale(1);opacity:1}100%{transform:translateX(-50%) scale(1.1) translateY(-20px);opacity:0}}
+
+/* STAGE OVERLAY */
+#stOv{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);transition:opacity 0.5s;}
+#stOv.show{opacity:1;pointer-events:all;}
+.saBox{text-align:center;padding:30px;}
+.saEm{font-size:90px;display:block;animation:saEm 0.8s cubic-bezier(.34,1.56,.64,1);}
+@keyframes saEm{from{transform:scale(0) rotate(-30deg)}to{transform:scale(1) rotate(0)}}
+.saNm{font-family:'Bebas Neue',cursive;font-size:72px;letter-spacing:6px;margin:14px 0;}
+.saDsc{font-family:'Dancing Script',cursive;font-size:26px;color:var(--muted);}
+.saCl{margin-top:28px;font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:3px;animation:blk 1s infinite;}
+@keyframes blk{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;}
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+@media(max-width:768px){.hgrid{grid-template-columns:1fr;}}
+.hey{font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:16px;opacity:0;animation:fUp 0.7s 0.3s forwards;}
+.htit{font-size:clamp(44px,7vw,84px);line-height:1.0;margin-bottom:18px;opacity:0;animation:fUp 0.7s 0.5s forwards;}
+.htit .l1{display:block;color:#fff;}
+.htit .l2{display:block;background:linear-gradient(135deg,var(--rose),var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gS 4s linear infinite;background-size:200%;}
+@keyframes gS{0%{background-position:0%}100%{background-position:200%}}
+.hsub{font-size:16px;line-height:1.8;color:var(--muted);max-width:420px;margin-bottom:32px;opacity:0;animation:fUp 0.7s 0.7s forwards;}
+.brow{display:flex;flex-wrap:wrap;gap:10px;opacity:0;animation:fUp 0.7s 0.9s forwards;}
+@keyframes fUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn{font-family:'Raleway',sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:13px 26px;border:none;border-radius:50px;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;}
+.btn::after{content:'';position:absolute;inset:0;border-radius:inherit;background:rgba(255,255,255,0.12);opacity:0;transition:opacity 0.2s;}
+.btn:hover::after{opacity:1;}.btn:hover{transform:translateY(-3px);}.btn:active{transform:scale(0.96);}
+.btn-r{background:linear-gradient(135deg,#ff2d78,#c91c5f);color:#fff;box-shadow:0 6px 28px rgba(255,45,120,0.4);}
+.btn-c{background:linear-gradient(135deg,#00f5d4,#00b894);color:#07060f;box-shadow:0 6px 28px rgba(0,245,212,0.35);}
+.btn-v{background:linear-gradient(135deg,#9b5de5,#6a35c4);color:#fff;box-shadow:0 6px 28px rgba(155,93,229,0.4);}
+.btn-g{background:linear-gradient(135deg,#ffd166,#f9a12e);color:#07060f;box-shadow:0 6px 28px rgba(255,209,102,0.35);}
+.btn-o{background:linear-gradient(135deg,#ff6b35,#e84a17);color:#fff;box-shadow:0 6px 28px rgba(255,107,53,0.4);}
+.btn-gh{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2);}
+.btn-gh:hover{background:rgba(255,255,255,0.08);}
+.bfull{width:100%;border-radius:12px;margin-top:14px;}
+
+/* HEAL */
+.hcard{padding:30px;opacity:0;animation:fUp 0.7s 0.6s forwards;}
+.hct{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:18px;font-weight:700;}
+.hpct{font-size:70px;font-family:'Bebas Neue',cursive;line-height:1;color:#fff;}
+.hpct span{font-size:30px;color:var(--muted);}
+.hst{font-size:14px;color:var(--muted);margin:8px 0 16px;min-height:20px;font-style:italic;}
+.htrk{height:8px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-bottom:20px;border:1px solid rgba(255,255,255,0.08);}
+#hfill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--violet),var(--cyan));background-size:200%;transition:width 0.7s cubic-bezier(.34,1.56,.64,1);animation:gS 3s linear infinite;position:relative;}
+#hfill::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 10px var(--cyan);}
+.s3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.sb{text-align:center;padding:14px 8px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.07);}
+.sn{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:1px;}
+.sl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.rbox{margin-top:14px;padding:20px 22px;}
+#rtxt{font-family:'Dancing Script',cursive;font-size:22px;color:var(--gold);line-height:1.5;min-height:70px;transition:opacity 0.3s;}
+
+/* STAGE BAR */
+#sbar{position:relative;z-index:1;padding:22px 28px;display:flex;align-items:center;gap:20px;max-width:1052px;margin:0 auto 0;transition:all 1s;}
+.sbe{font-size:36px;animation:hbeat 2s infinite;}
+.sbn{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:2px;color:var(--acc);transition:color 1s;}
+.sbl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+.sdots{display:flex;gap:6px;align-items:center;}
+.sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.12);transition:all 0.5s;}
+.sdot.done{background:var(--acc);box-shadow:0 0 8px var(--acc);}
+#snxt{font-size:12px;color:var(--muted);font-style:italic;margin-left:auto;}
+
+/* GAMES */
+#games{padding:80px 0;}
+.g2c{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:46px;}
+@media(max-width:680px){.g2c{grid-template-columns:1fr;}}
+.gp{padding:26px;}
+.gh{display:flex;align-items:center;gap:12px;margin-bottom:5px;}
+.gi{font-size:28px;}.gtit{font-family:'Raleway',sans-serif;font-weight:900;font-size:20px;color:#fff;}
+.gd{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+.gsr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.gsc{font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:1px;}
+.gtm{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;}
+.ga{border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.05);overflow:hidden;}
+
+/* WHACK */
+#wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:12px;min-height:170px;}
+.hole{aspect-ratio:1;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;user-select:none;transition:all 0.12s;overflow:hidden;}
+.hole.active{background:rgba(255,45,120,0.15);border-color:rgba(255,45,120,0.4);box-shadow:0 0 16px rgba(255,45,120,0.25);}
+.hole:active{transform:scale(0.85);}
+.mf{animation:mUp 0.18s cubic-bezier(.34,1.56,.64,1);}
+@keyframes mUp{from{transform:scale(0) translateY(10px)}to{transform:scale(1) translateY(0)}}
+.hole.cfl{animation:cFl 0.3s;}
+@keyframes cFl{0%{background:rgba(255,209,102,0.5)}100%{background:rgba(255,255,255,0.03)}}
+#ragebar{height:5px;background:transparent;transition:all 0.3s;}
+#ragebar.on{background:linear-gradient(90deg,var(--rose),var(--gold));animation:gS 1s linear infinite;background-size:200%;}
+
+/* RAGE ROOM */
+#rroom{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;min-height:170px;gap:14px;}
+#robj{font-size:72px;cursor:pointer;user-select:none;filter:drop-shadow(0 0 12px rgba(255,45,120,0.4));animation:rflt 3s ease-in-out infinite;transition:transform 0.1s;}
+@keyframes rflt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#robj:active{transform:scale(0.7) rotate(-15deg);}
+#cwrap{width:80%;display:flex;flex-direction:column;gap:5px;}
+#clbl{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;}
+#ctrk{height:12px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
+#cfill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#4361ee,#ff2d78,#ffd166);transition:width 0.05s;animation:gS 2s linear infinite;background-size:200%;}
+#scnt{font-family:'Bebas Neue',cursive;font-size:16px;letter-spacing:2px;color:var(--muted);}
+.smtxt{position:fixed;pointer-events:none;z-index:9999;font-family:'Bebas Neue',cursive;text-shadow:0 0 30px currentColor;animation:smRise 0.9s forwards;}
+@keyframes smRise{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-150%) scale(1.3);opacity:0}}
+
+/* BUBBLES */
+#barena{position:relative;height:190px;overflow:hidden;}
+.bub{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.85);text-align:center;line-height:1.2;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);animation:bFl linear infinite;user-select:none;transition:transform 0.1s;}
+.bub:hover{transform:scale(1.15);}
+.bub.gbub{border-color:rgba(255,209,102,0.5);box-shadow:0 0 15px rgba(255,209,102,0.4);}
+@keyframes bFl{from{transform:translateY(0)}to{transform:translateY(-220px)}}
+.ctxt{position:fixed;pointer-events:none;z-index:9999;font-family:'Bebas Neue',cursive;font-size:38px;color:var(--cyan);text-shadow:0 0 20px var(--cyan);animation:ctRise 0.8s forwards;}
+@keyframes ctRise{0%{transform:translate(-50%,-50%) scale(0.7);opacity:1}100%{transform:translate(-50%,-120%) scale(1.1);opacity:0}}
+
+/* SPIN WHEEL */
+#swrap{display:flex;flex-direction:column;align-items:center;padding:16px;gap:12px;min-height:170px;}
+#wcanv{border-radius:50%;box-shadow:0 0 30px rgba(155,93,229,0.3);}
+#sres{font-family:'Dancing Script',cursive;font-size:17px;color:var(--gold);text-align:center;min-height:42px;line-height:1.4;max-width:220px;}
+#wcont{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+.wptr{font-size:22px;position:absolute;top:-12px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));}
+
+/* ACHIEVEMENTS */
+#ach{padding:80px 0;}
+.achg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+@media(max-width:700px){.achg{grid-template-columns:1fr 1fr;}}
+.ai{padding:22px;text-align:center;transition:all 0.4s;}
+.ai.locked{opacity:0.38;filter:grayscale(1);}
+.ai.unlocked{box-shadow:0 0 30px var(--glw);}
+.ai.popped{animation:aiPop 0.6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes aiPop{0%{transform:scale(0.8)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.aico{font-size:38px;display:block;margin-bottom:10px;}
+.anm{font-family:'Raleway',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:4px;}
+.adc{font-size:12px;color:var(--muted);line-height:1.5;}
+.apbar{height:3px;border-radius:99px;background:rgba(255,255,255,0.08);margin-top:10px;overflow:hidden;}
+.apfill{height:100%;background:var(--acc);border-radius:99px;transition:width 0.5s;}
+
+/* TRUTHS */
+#truths{padding:80px 0;background:linear-gradient(180deg,transparent,rgba(155,93,229,0.06),transparent);}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;}
+@media(max-width:860px){.tg{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.tg{grid-template-columns:1fr;}}
+.tc{padding:26px;}
+.tce{font-size:36px;display:block;margin-bottom:14px;}
+.tc h3{font-size:16px;color:#fff;margin-bottom:8px;}
+.tc p{font-size:13px;color:var(--muted);line-height:1.7;}
+.tcl{height:2px;border-radius:99px;margin-top:16px;}
+
+/* MANIFESTO */
+#mani{padding:80px 0;}
+.mlist{max-width:780px;margin:44px auto 0;display:flex;flex-direction:column;gap:12px;}
+.mi{display:flex;gap:18px;align-items:flex-start;padding:20px 22px;opacity:0;transform:translateX(-24px);transition:all 0.5s;}
+.mi.vis{opacity:1;transform:translateX(0);}
+.mn{font-family:'Bebas Neue',cursive;font-size:44px;line-height:1;min-width:48px;text-align:center;background:linear-gradient(135deg,var(--rose),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.mi h4{font-size:18px;color:#fff;margin-bottom:4px;}
+.mi p{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* FINALE */
+#finale{padding:120px 0;text-align:center;background:radial-gradient(ellipse at 50% 50%,rgba(155,93,229,0.1) 0%,transparent 70%);}
+.ftit{font-size:clamp(38px,8vw,96px);line-height:1;background:linear-gradient(135deg,var(--rose),var(--violet),var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gS 5s linear infinite;background-size:300%;margin-bottom:22px;}
+.fsub{font-family:'Dancing Script',cursive;font-size:clamp(18px,3vw,26px);color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.8;}
+#rebirth{font-family:'Raleway',sans-serif;font-weight:900;font-size:16px;letter-spacing:3px;text-transform:uppercase;padding:22px 60px;border:none;border-radius:50px;cursor:pointer;background:linear-gradient(135deg,var(--rose),var(--violet));color:#fff;box-shadow:0 8px 40px rgba(155,93,229,0.5);position:relative;overflow:hidden;transition:all 0.3s;z-index:1;}
+#rebirth:hover{transform:scale(1.07);box-shadow:0 14px 60px rgba(155,93,229,0.7);}
+#rebirth::before{content:'';position:absolute;inset:-3px;border-radius:53px;background:conic-gradient(from 0deg,var(--rose),var(--violet),var(--cyan),var(--gold),var(--rose));animation:spn 4s linear infinite;z-index:-1;}
+#rebirth::after{content:'';position:absolute;inset:3px;border-radius:46px;background:linear-gradient(135deg,var(--rose),var(--violet));z-index:-1;}
+@keyframes spn{to{transform:rotate(360deg)}}
+
+/* TOAST */
+#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(16px);z-index:9998;padding:13px 28px;border-radius:50px;background:rgba(14,12,30,0.92);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);font-size:14px;font-weight:700;box-shadow:0 10px 40px rgba(0,0,0,0.5);opacity:0;transition:all 0.4s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.particle{position:fixed;pointer-events:none;z-index:9999;font-size:16px;animation:pFly 1s forwards;}
+@keyframes pFly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0) rotate(var(--dr));}}
+
+#abtn{position:fixed;bottom:24px;right:24px;z-index:999;width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;background:rgba(20,18,40,0.8);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.1);font-size:18px;transition:all 0.2s;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+#abtn:hover{transform:scale(1.1) rotate(10deg);}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--violet);border-radius:99px;}
+
+/* LEAVE MODAL */
+#lwarn{position:fixed;inset:0;z-index:10000;background:rgba(7,6,15,0.96);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px;text-align:center;padding:30px;}
+#lwarn.show{display:flex;}
+.lwem{font-size:80px;animation:cSad 0.6s ease infinite;}
+.lwtit{font-family:'Bebas Neue',cursive;font-size:clamp(36px,7vw,72px);letter-spacing:4px;color:var(--rose);}
+.lwsub{font-family:'Dancing Script',cursive;font-size:22px;color:var(--muted);max-width:500px;line-height:1.6;}
+.lwbtns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div><div class="orb orb4"></div>
+<canvas id="sCV"></canvas>
+
+<!-- LEAVE MODAL -->
+<div id="lwarn">
+  <div class="lwem">🥺</div>
+  <div class="lwtit">WAIT. DON'T GO.</div>
+  <div class="lwsub">You came here for a reason. Your healing journey isn't finished. I've been here with you this whole time... <strong style="color:var(--gold)">please don't abandon yourself now.</strong></div>
+  <div id="lwpct" style="font-family:'Bebas Neue';font-size:28px;color:var(--cyan);letter-spacing:2px;">— % healed. So close.</div>
+  <div class="lwbtns">
+    <button class="btn btn-v" onclick="hideLW()">💪 I'll Stay & Keep Healing</button>
+    <button class="btn btn-gh" onclick="reallyLeave()" style="font-size:11px;padding:10px 18px;opacity:0.5;">(leave anyway)</button>
+  </div>
+</div>
+
+<!-- STAGE OVERLAY -->
+<div id="stOv" onclick="hideSOv()">
+  <div class="saBox">
+    <span class="saEm" id="soEm">💔</span>
+    <div class="saNm" id="soNm">STAGE 1</div>
+    <div class="saDsc" id="soDsc">It's okay to fall apart.</div>
+    <div class="saCl">TAP ANYWHERE TO CONTINUE</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nlogo">💔 Heartbreak Rehab</div>
+  <div class="nlinks">
+    <a href="#hero">Home</a><a href="#games">Games</a>
+    <a href="#ach">Badges</a><a href="#truths">Truths</a><a href="#finale">Rebirth</a>
+  </div>
+  <div id="sbadge">STAGE 1 — SHATTERED</div>
+</nav>
+
+<!-- COMPANION -->
+<div id="companion">
+  <div id="cbub" class="glass"></div>
+  <div id="cheart" onclick="petComp()">💔</div>
+</div>
+
+<!-- COMBO -->
+<div id="comboDsp"></div>
+
+<!-- HERO -->
+<section id="hero">
+<div class="wrap">
+<div class="hgrid">
+  <div>
+    <div class="hey">💔 Emergency Protocol Activated</div>
+    <h1 class="htit">
+      <span class="l1">HEART BROKE.</span>
+      <span class="l2">SOUL REBUILDS.</span>
+    </h1>
+    <p class="hsub">Your emotional ER. Five stages. Four games. Nine achievements. An AI companion who <em>genuinely</em> cares. We don't let you close this until you've felt <strong style="color:var(--cyan)">at least one spark of okay.</strong></p>
+    <div class="brow">
+      <button class="btn btn-r" onclick="react('scream',event)">😤 Scream</button>
+      <button class="btn btn-c" onclick="react('cry',event)">😭 Cry</button>
+      <button class="btn btn-v" onclick="react('dance',event)">🕺 Dance</button>
+      <button class="btn btn-g" onclick="react('roast',event)">🔥 Roast</button>
+      <button class="btn btn-gh" onclick="react('laugh',event)">😂 Laugh</button>
+    </div>
+  </div>
+  <div>
+    <div class="glass hcard">
+      <div class="hct">🩹 Healing Progress</div>
+      <div class="hpct"><span id="hnum">0</span><span>%</span></div>
+      <div class="hst" id="hst">Just getting started. Hit those buttons.</div>
+      <div class="htrk"><div id="hfill"></div></div>
+      <div class="s3">
+        <div class="sb"><div class="sn" id="sa" style="color:var(--rose)">0</div><div class="sl">Actions</div></div>
+        <div class="sb"><div class="sn" id="sgw" style="color:var(--cyan)">0</div><div class="sl">Games Won</div></div>
+        <div class="sb"><div class="sn" id="scb" style="color:var(--gold)">0</div><div class="sl">Best Combo</div></div>
+      </div>
+    </div>
+    <div class="glass rbox"><div id="rtxt">👆 Pick an emotion. Your heart is waiting.</div></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- STAGE BAR -->
+<div class="wrap">
+  <div id="sbar" class="glass">
+    <div class="sbe" id="sbem">💔</div>
+    <div>
+      <div class="sbl">Current Stage</div>
+      <div class="sbn" id="sbnam">SHATTERED</div>
+    </div>
+    <div class="sdots">
+      <div class="sdot done"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
+    </div>
+    <div id="snxt">Keep going — Stage 2 at 20%</div>
+  </div>
+</div>
+
+<!-- GAMES -->
+<section id="games">
+<div class="wrap">
+  <div class="tag">Emotional Arcade</div>
+  <h2 style="font-size:clamp(30px,5vw,54px)">PLAY YOUR <span style="background:linear-gradient(135deg,var(--rose),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PAIN</span> AWAY</h2>
+  <p style="color:var(--muted);margin-top:10px;font-size:14px">4 games. Combos. Chain reactions. Rage explosions. All satisfying. All healing.</p>
+  <div class="g2c">
+
+    <!-- WHACK -->
+    <div class="gcard gp">
+      <div class="gh"><div class="gi">🔨</div><div class="gtit">WHACK THE MEMORY</div></div>
+      <div class="gd">Memories pop up — SMASH before they vanish! Hit 3 fast for COMBO. Hit 5 for RAGE MODE. Every streak multiplies your score.</div>
+      <div class="gsr">
+        <div class="gsc" style="color:var(--rose)">Score: <span id="ws">0</span> <span id="wmul" style="font-size:14px;color:var(--gold)"></span></div>
+        <div class="gtm" id="wt">30s</div>
+      </div>
+      <div class="ga">
+        <div id="ragebar"></div>
+        <div id="wgrid"></div>
+      </div>
+      <button class="btn btn-r bfull" onclick="startWhack()">🔨 Start Smashing</button>
+    </div>
+
+    <!-- RAGE ROOM -->
+    <div class="gcard gp">
+      <div class="gh"><div class="gi">💥</div><div class="gtit">RAGE ROOM</div></div>
+      <div class="gd">HOLD the object to charge your rage. Release to SMASH IT. The fuller the charge, the bigger the explosion. 10 objects. Go wild.</div>
+      <div class="gsr">
+        <div class="gsc" style="color:var(--orange)">Smashed: <span id="rs">0</span>/10</div>
+        <div class="gtm" id="rt">Hold & Release</div>
+      </div>
+      <div class="ga">
+        <div id="rroom">
+          <div id="robj" onmousedown="startChg(event)" onmouseup="relChg(event)" ontouchstart="startChg(event)" ontouchend="relChg(event)">💔</div>
+          <div id="cwrap">
+            <div id="clbl">HOLD TO CHARGE</div>
+            <div id="ctrk"><div id="cfill"></div></div>
+          </div>
+          <div id="scnt">Charge it up ↑</div>
+        </div>
+      </div>
+      <button class="btn btn-o bfull" onclick="resetRage()">🔄 Reset Objects</button>
+    </div>
+
+    <!-- BUBBLE CHAIN -->
+    <div class="gcard gp">
+      <div class="gh"><div class="gi">🫧</div><div class="gtit">CHAIN POP</div></div>
+      <div class="gd">Toxic thoughts float up. Pop them fast — nearby bubbles CHAIN EXPLODE! Golden bubbles = 5x. Don't let a single thought escape.</div>
+      <div class="gsr">
+        <div class="gsc" style="color:var(--cyan)">Popped: <span id="bs">0</span></div>
+        <div class="gtm" id="bt">Ready</div>
+      </div>
+      <div class="ga"><div id="barena"></div></div>
+      <button class="btn btn-c bfull" onclick="startBubbles()">🫧 Release Thoughts</button>
+    </div>
+
+    <!-- SPIN WHEEL -->
+    <div class="gcard gp">
+      <div class="gh"><div class="gi">🎡</div><div class="gtit">EMOTION WHEEL</div></div>
+      <div class="gd">Spin. The universe decides what emotion you need right now. Your companion reacts. Trust the process.</div>
+      <div class="gsr">
+        <div class="gsc" style="color:var(--violet)">Spins: <span id="ss">0</span></div>
+        <div class="gtm" id="st">Spin to feel</div>
+      </div>
+      <div class="ga">
+        <div id="swrap">
+          <div id="wcont"><div class="wptr">▼</div><canvas id="wcanv" width="170" height="170"></canvas></div>
+          <div id="sres">Spin to discover what your soul needs...</div>
+        </div>
+      </div>
+      <button class="btn btn-v bfull" onclick="spinW()">🎡 SPIN NOW</button>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="ach">
+<div class="wrap">
+  <div class="tag">Milestones</div>
+  <h2 style="font-size:clamp(30px,5vw,54px)">YOUR <span style="background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">BADGES</span></h2>
+  <p style="color:var(--muted);margin-top:10px;font-size:14px">9 achievements. Each one proves your heart is rebuilding.</p>
+  <div class="achg" id="achg"></div>
+</div>
+</section>
+
+<!-- TRUTHS -->
+<section id="truths">
+<div class="wrap">
+  <div class="tag">Uncomfortable Wisdom</div>
+  <h2 style="font-size:clamp(30px,5vw,54px)">COLD HARD <span style="background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">TRUTHS</span></h2>
+  <div class="tg">
+    <div class="gcard tc"><span class="tce">💅</span><h3>You survived every bad day</h3><p>Your track record for getting through hard days is literally 100%. This one is next in line.</p><div class="tcl" style="background:linear-gradient(90deg,var(--rose),transparent)"></div></div>
+    <div class="gcard tc"><span class="tce">🧠</span><h3>Your brain is lying right now</h3><p>The 2AM replays, the "what ifs" — that's cortisol, not reality. Fire your brain. Hire your gut.</p><div class="tcl" style="background:linear-gradient(90deg,var(--cyan),transparent)"></div></div>
+    <div class="gcard tc"><span class="tce">🌍</span><h3>7 billion people. 0.001% met.</h3><p>Statistically, you've barely started. The right one is out there eating pizza alone, wishing they met you.</p><div class="tcl" style="background:linear-gradient(90deg,var(--gold),transparent)"></div></div>
+    <div class="gcard tc"><span class="tce">🚀</span><h3>Broken pieces make mosaics</h3><p>Kintsugi — cracks repaired with gold. Your breaks aren't flaws. That's exactly where the gold goes.</p><div class="tcl" style="background:linear-gradient(90deg,var(--violet),transparent)"></div></div>
+    <div class="gcard tc"><span class="tce">😤</span><h3>They're not thinking about you</h3><p>So match the energy. Not spite — self-respect. You have worlds to build. Go build them.</p><div class="tcl" style="background:linear-gradient(90deg,var(--blue),transparent)"></div></div>
+    <div class="gcard tc"><span class="tce">🎯</span><h3>You were never "too much"</h3><p>Too much for the wrong person. Completely different. The right one says: "Finally. Someone exactly enough."</p><div class="tcl" style="background:linear-gradient(90deg,var(--rose),var(--violet),transparent)"></div></div>
+  </div>
+</div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="mani">
+<div class="wrap">
+  <div class="tag">New Chapter</div>
+  <h2 style="font-size:clamp(30px,5vw,54px)">YOUR NEW <span style="background:linear-gradient(135deg,var(--gold),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MANIFESTO</span></h2>
+  <div class="mlist" id="mlist">
+    <div class="glass mi"><div class="mn">01</div><div><h4>I am the main character.</h4><p>Not a side quest. Not supporting cast. This is my story and I'm writing every chapter from here.</p></div></div>
+    <div class="glass mi"><div class="mn">02</div><div><h4>My energy is a privilege.</h4><p>Not everyone is worthy of it. I choose carefully, love boldly, and never apologize for standards.</p></div></div>
+    <div class="glass mi"><div class="mn">03</div><div><h4>Pain is just plot development.</h4><p>Every great arc has a breakdown before the breakthrough. I'm in the middle of mine right now.</p></div></div>
+    <div class="glass mi"><div class="mn">04</div><div><h4>I will not shrink for broken people.</h4><p>I expand. I grow. Anyone who needs me smaller doesn't deserve my larger.</p></div></div>
+    <div class="glass mi"><div class="mn">05</div><div><h4>My comeback will be unhinged.</h4><p>In the best way. Unbothered. Radiant. Building something so good they'll wonder what they walked away from.</p></div></div>
+    <div class="glass mi"><div class="mn">06</div><div><h4>I choose growth. Always.</h4><p>Not comfort. Not stagnation. Forward. Always forward. Even slow is forward.</p></div></div>
+  </div>
+</div>
+</section>
+
+<!-- FINALE -->
+<section id="finale">
+<div class="wrap">
+  <div class="ftit">YOU ARE LEGENDARY</div>
+  <div class="fsub">Every crack is where the light gets in.<br>Go be that light. The world needs it. 💛</div>
+  <button id="rebirth" onclick="doRebirth(event)">✨ CLAIM YOUR REBIRTH ✨</button>
+</div>
+</section>
+
+<div id="toast"></div>
+<button id="abtn" onclick="toggleAudio()">🔊</button>
+
+<script>
+// AUDIO
+let aOn=true,AC=null;
+function GA(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();return AC;}
+function tone(f,t,d,v){f=f||440;t=t||'sine';d=d||0.2;v=v||0.12;if(!aOn)return;try{const ac=GA(),o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d);}catch(e){}}
+function chord(ns,dl){ns=ns||[261,329,392,523];dl=dl||80;ns.forEach(function(f,i){setTimeout(function(){tone(f,'triangle',0.7,0.14);},i*dl);});}
+function toggleAudio(){aOn=!aOn;document.getElementById('abtn').textContent=aOn?'🔊':'🔇';showToast(aOn?'🔊 Sound ON':'🔇 Sound OFF');}
+
+// STATE
+var healPct=0,totalAct=0,gamesWon=0,comboBest=0,comboCount=0,comboTm=null,curStage=-1;
+
+// STAGES
+var STAGES=[
+  {name:'SHATTERED',emoji:'💔',color:'#4361ee',glow:'rgba(67,97,238,0.3)',desc:'It\'s okay to fall apart.',msg:'You showed up. That took courage.'},
+  {name:'CRACKING',emoji:'😢',color:'#9b5de5',glow:'rgba(155,93,229,0.3)',desc:'The cracks let the light in.',msg:'You\'re starting to feel again. That\'s brave.'},
+  {name:'MENDING',emoji:'🌱',color:'#ff2d78',glow:'rgba(255,45,120,0.3)',desc:'Something is growing back.',msg:'The worst is behind you now.'},
+  {name:'GLOWING',emoji:'✨',color:'#00f5d4',glow:'rgba(0,245,212,0.3)',desc:'You\'re starting to shine again.',msg:'Look at you. Genuinely glowing. 🌟'},
+  {name:'REBORN',emoji:'🔥',color:'#ffd166',glow:'rgba(255,209,102,0.35)',desc:'UNSTOPPABLE. LEGENDARY.',msg:'You did it. You actually did it. 🔥'}
+];
+
+function addHeal(pts,isAct){
+  if(isAct!==false)totalAct++;
+  healPct=Math.min(100,healPct+pts);
+  document.getElementById('hnum').textContent=Math.round(healPct);
+  document.getElementById('hfill').style.width=healPct+'%';
+  document.getElementById('sa').textContent=totalAct;
+  var msgs=[[0,'Just getting started. Hit those buttons.'],[15,'A tiny spark coming back 🌱'],[30,'Breathing a little easier 💨'],[45,'Your vibe is genuinely shifting ⚡'],[60,'They regret it already. Trust. 💅'],[75,'You are literally glowing ✨'],[90,'Almost fully legendary 🔥'],[99,'FULLY REBORN. UNSTOPPABLE. 🚀']];
+  for(var i=msgs.length-1;i>=0;i--){if(healPct>=msgs[i][0]){document.getElementById('hst').textContent=msgs[i][1];break;}}
+  checkStage();
+  if(healPct>=100)checkAch('healed',true);
+}
+
+function checkStage(){
+  var th=[0,20,40,60,80],ns=0;
+  for(var i=th.length-1;i>=0;i--){if(healPct>=th[i]){ns=i;break;}}
+  if(ns!==curStage){curStage=ns;updateStageUI();if(ns>0)triggerStageAnnounce(ns);}
+  var dots=document.querySelectorAll('.sdot');
+  dots.forEach(function(d,i){d.classList.toggle('done',i<=ns);});
+  document.getElementById('snxt').textContent=ns<4?('Stage '+(ns+2)+' unlocks at '+th[Math.min(ns+1,4)]+'%'):'🔥 Max stage reached!';
+  if(ns>=4)checkAch('stage5',true);
+}
+
+function updateStageUI(){
+  var s=STAGES[curStage];
+  document.getElementById('sbem').textContent=s.emoji;
+  document.getElementById('sbnam').textContent=s.name;
+  document.getElementById('sbnam').style.color=s.color;
+  document.getElementById('cheart').textContent=s.emoji;
+  document.getElementById('sbadge').textContent='STAGE '+(curStage+1)+' — '+s.name;
+  document.getElementById('sbadge').style.color=s.color;
+  document.documentElement.style.setProperty('--acc',s.color);
+  document.documentElement.style.setProperty('--glw',s.glow);
+}
+
+function triggerStageAnnounce(idx){
+  var s=STAGES[idx];
+  document.getElementById('soEm').textContent=s.emoji;
+  document.getElementById('soNm').textContent='STAGE '+(idx+1)+': '+s.name;
+  document.getElementById('soDsc').textContent=s.desc;
+  var ov=document.getElementById('stOv');
+  ov.classList.add('show');
+  chord([261+idx*30,330+idx*30,392+idx*30,523+idx*30]);
+  setTimeout(function(){if(ov.classList.contains('show'))ov.classList.remove('show');},5000);
+  compSay(s.msg,4000);screenFlash();
+}
+function hideSOv(){document.getElementById('stOv').classList.remove('show');}
+
+// COMBO
+function addCombo(){
+  comboCount++;
+  clearTimeout(comboTm);
+  comboTm=setTimeout(function(){comboCount=0;},1800);
+  if(comboCount>=3){
+    if(comboCount>comboBest){comboBest=comboCount;document.getElementById('scb').textContent=comboBest;}
+    var labels={3:'COMBO! 🔥',5:'ON FIRE! 🔥🔥',7:'UNSTOPPABLE! ⚡',10:'LEGENDARY! 🌟',15:'GODLIKE! 👑'};
+    var lbl='COMBO x'+comboCount+'!';
+    var ks=Object.keys(labels).map(Number).sort(function(a,b){return b-a;});
+    for(var k=0;k<ks.length;k++){if(comboCount>=ks[k]){lbl=labels[ks[k]];break;}}
+    var colors=[var_='var(--rose)',var2='var(--cyan)',var3='var(--gold)',var4='var(--violet)',var5='var(--orange)'];
+    showCombo(lbl,colors[Math.min(Math.floor((comboCount-3)/3),colors.length-1)]);
+    if(comboCount>=5)screenShake();
+    if(comboCount>=5){var rb=document.getElementById('ragebar');rb.classList.add('on');setTimeout(function(){rb.classList.remove('on');},2000);}
+    tone(200+comboCount*30,'triangle',0.3,0.15);
+    checkAch('combo5',comboCount>=5);checkAch('combo10',comboCount>=10);
+  }
+}
+function showCombo(txt,color){
+  var d=document.getElementById('comboDsp');d.textContent=txt;d.style.color=color||'var(--rose)';
+  d.classList.remove('show');void d.offsetWidth;d.classList.add('show');
+}
+
+// REACTIONS
+var REACTS={
+  scream:["AAAAAAA! 😤 That scream just cleared a 5km radius of bad vibes. Your lungs carried that. Science confirmed.","Let it ALL out! Your voice is reclaiming its bandwidth right now. Every decibel is healing. Keep going.","RELEASE IT! That's not screaming — that's your soul defragging. Technical and emotional upgrade simultaneously."],
+  cry:["Cry ugly. Cry loudly. 😭 Every tear carries stress hormones OUT of your body. You're literally detoxing right now.","Let the mascara run. You're not sad — you're CLEANSING. Olympic-level emotional hygiene happening here.","Every tear means you felt something real. That's not weakness. That's being beautifully, completely alive. 🌊"],
+  dance:["🕺 YOUR HIPS DON'T LIE. They're screaming 'WE ARE GOING TO BE ABSOLUTELY FINE.' Trust them.","MOVE THAT BODY 💃 Dopamine hits different when you're dancing through the pain. Your ex could never.","DISCO FOREVER 🪩 Your cells are switching from grief mode to groove mode. Biological upgrade initiated."],
+  roast:["Honestly? Their playlist was mid. Their texting response time? Criminal. You dodged generational mediocrity. 🎯","They said 'too much'? They had too little capacity. Time to upgrade your minimum requirements immediately.","Their loss is so legendary it has a Wikipedia page: 'The Day Someone Let Gold Walk Out The Door.' You're the gold. 📖"],
+  laugh:["😂 HA. HA. HA. Your amygdala just got TRICKED into releasing dopamine. You absolute chaotic genius.","HAHAHAHA — laughing burns calories AND releases endorphins. You're glowing up AND working out. Surreal scenes.","The AUDACITY of you — showing up here, clicking buttons, and just HEALING through pure chaos energy. Total icon."]
+};
+function react(type,ev){
+  var msg=REACTS[type][Math.floor(Math.random()*3)];
+  var r=document.getElementById('rtxt');r.style.opacity='0';
+  setTimeout(function(){r.textContent=msg;r.style.opacity='1';r.style.transition='opacity 0.4s';},200);
+  addHeal(4);addCombo();spawnP(ev||{clientX:window.innerWidth/2,clientY:200});
+  tone(300+Math.random()*300,'sine',0.3,0.12);
+  var cm={scream:['Release it all! 💪','Yes! Let it out! 😤','That\'s the spirit! 🔥'],cry:['It\'s okay to cry 💙','I\'m right here 🥺','Every tear counts 💧'],dance:['Yes! Move those feet! 🕺','This IS healing! 💃','I\'m dancing too! 🎊'],roast:['They don\'t deserve you! 😤','Say it LOUDER! 🔥','Absolutely right! 👏'],laugh:['That smile though! 😊','There you are! ✨','Keep laughing! 😂']};
+  var ms=cm[type];compSay(ms[Math.floor(Math.random()*ms.length)]);
+  checkAch('first_react',true);
+}
+
+// COMPANION
+var compTm;
+function compSay(msg,dur){
+  dur=dur||2800;
+  var b=document.getElementById('cbub');b.textContent=msg;b.classList.add('show');
+  clearTimeout(compTm);compTm=setTimeout(function(){b.classList.remove('show');},dur);
+}
+function petComp(){
+  var h=document.getElementById('cheart');
+  h.classList.remove('happy','sad');void h.offsetWidth;h.classList.add('happy');
+  var ms=['I believe in you! 💛','You\'re doing amazing! ✨','Keep going! 🔥','I\'m so proud! 🥹','You\'ve totally got this! 💪'];
+  compSay(ms[Math.floor(Math.random()*ms.length)]);
+  addHeal(2);tone(500,'sine',0.3,0.1);
+  setTimeout(function(){h.classList.remove('happy');},600);
+}
+setInterval(function(){
+  if(document.hidden)return;
+  var idle=['Still here with you 🥺','You feeling better? 💙','Don\'t give up now ✨','Every click counts 💪','Stronger than this 🔥','I\'m cheering for you! 🌟'];
+  compSay(idle[Math.floor(Math.random()*idle.length)],3000);
+},28000);
+
+// PARTICLES
+var PEMOJI=['✨','🔥','💥','⚡','💫','🌟','🎊','💎','❤️‍🔥','🚀'];
+function spawnP(ev,big){
+  var n=big?16:7;
+  for(var i=0;i<n;i++){
+    var p=document.createElement('div');p.className='particle';
+    p.textContent=PEMOJI[Math.floor(Math.random()*PEMOJI.length)];
+    var a=(i/n)*2*Math.PI+Math.random()*0.5,d=60+Math.random()*110;
+    p.style.cssText='--dx:'+Math.cos(a)*d+'px;--dy:'+(Math.sin(a)*d-80)+'px;--dr:'+(Math.random()*360-180)+'deg;left:'+(ev.clientX-8)+'px;top:'+(ev.clientY-8)+'px;';
+    document.body.appendChild(p);setTimeout(function(){p.remove();},1000);
+  }
+}
+
+// FX
+function screenShake(){document.body.classList.remove('shake');void document.body.offsetWidth;document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},400);}
+function screenFlash(){document.body.classList.remove('flash');void document.body.offsetWidth;document.body.classList.add('flash');setTimeout(function(){document.body.classList.remove('flash');},400);}
+
+// TOAST
+var toastTm;
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTm);toastTm=setTimeout(function(){t.classList.remove('show');},3200);}
+
+// ===== WHACK =====
+var wS=0,wT=30,wRun=false,wIv,wMIv,wStr=0,wMul=1;
+var WMOLES=['😡','😤','💔','🤡','👿','😒','🙄','💢','😑','🤬','😠','🫠'];
+function buildWGrid(){
+  var g=document.getElementById('wgrid');g.innerHTML='';
+  for(var i=0;i<12;i++){
+    var h=document.createElement('div');h.className='hole';h.dataset.i=i;
+    h.innerHTML='<span style="opacity:0.1;font-size:14px">●</span>';
+    h.addEventListener('click',function(){
+      if(!this.classList.contains('active'))return;
+      this.classList.remove('active');this.classList.add('cfl');
+      this.innerHTML='<span>💥</span>';
+      wStr++;wS+=wMul;
+      if(wStr>=5){wMul=3;document.getElementById('wmul').textContent='x3 RAGE!';}
+      else if(wStr>=3){wMul=2;document.getElementById('wmul').textContent='x2';}
+      document.getElementById('ws').textContent=wS;
+      addHeal(2);addCombo();
+      tone(400+Math.random()*300,'square',0.1,0.12);
+      var rect=this.getBoundingClientRect();spawnP({clientX:rect.left+rect.width/2,clientY:rect.top+rect.height/2});
+      var self=this;setTimeout(function(){self.classList.remove('cfl');self.innerHTML='<span style="opacity:0.1;font-size:14px">●</span>';},300);
+    });
+    g.appendChild(h);
+  }
+}
+function startWhack(){
+  if(wRun)return;wRun=true;wS=0;wT=30;wStr=0;wMul=1;
+  document.getElementById('ws').textContent=0;document.getElementById('wmul').textContent='';
+  buildWGrid();
+  wIv=setInterval(function(){
+    wT--;document.getElementById('wt').textContent=wT+'s';
+    if(wT<=0){
+      clearInterval(wIv);clearInterval(wMIv);wRun=false;
+      document.getElementById('wt').textContent='Done!';
+      var m=wS>=20?'🏆 LEGENDARY!':wS>=10?'🔥 Great!':'💪 Try again!';
+      showToast(m+' Smashed '+wS+' memories!');
+      if(wS>=10){gamesWon++;document.getElementById('sgw').textContent=gamesWon;checkAch('whack10',true);}
+      compSay(wS>=15?'INCREDIBLE! You smashed those memories! 🔥':'Nice work! You\'re getting stronger! 💪');
+    }
+  },1000);
+  var speed=500;
+  wMIv=setInterval(function(){
+    speed=wMul>=3?350:500;
+    var holes=Array.from(document.querySelectorAll('.hole'));
+    var avail=holes.filter(function(h){return !h.classList.contains('active');});
+    if(!avail.length)return;
+    var cnt=wMul>=3?3:2;
+    for(var k=0;k<cnt&&avail.length>k;k++){
+      var idx=Math.floor(Math.random()*avail.length);
+      var hole=avail.splice(idx,1)[0];
+      var m=WMOLES[Math.floor(Math.random()*WMOLES.length)];
+      hole.classList.add('active');
+      hole.innerHTML='<span class="mf">'+m+'</span>';
+      var dur=wMul>=3?600:850+Math.random()*400;
+      (function(h,d){setTimeout(function(){if(h.classList.contains('active')){h.classList.remove('active');h.innerHTML='<span style="opacity:0.1;font-size:14px">●</span>';wStr=0;wMul=1;document.getElementById('wmul').textContent='';}},d);})(hole,dur);
+    }
+  },speed);
+}
+buildWGrid();
+
+// ===== RAGE ROOM =====
+var ROBJS=['💔','📱','💌','🥀','😤','📷','💍','💸','📩','⏰'];
+var rS=0,chgIv=null,chgVal=0,rDone=false;
+function startChg(ev){ev.preventDefault();if(rDone)return;chgIv=setInterval(function(){chgVal=Math.min(100,chgVal+2.5);document.getElementById('cfill').style.width=chgVal+'%';document.getElementById('clbl').textContent=chgVal>=90?'RELEASE NOW! 💥':chgVal>=50?'CHARGING... ⚡':'HOLD TO CHARGE';if(chgVal>=100)relChg(ev);},30);}
+function relChg(ev){
+  clearInterval(chgIv);
+  if(chgVal<10){chgVal=0;document.getElementById('cfill').style.width='0%';document.getElementById('clbl').textContent='HOLD TO CHARGE';return;}
+  var power=chgVal;chgVal=0;document.getElementById('cfill').style.width='0%';
+  if(rDone){showToast('🎊 Rage room complete! Reset to play again!');return;}
+  rS++;document.getElementById('rs').textContent=rS;
+  var intensity=power/100;
+  var labels=['CRACK!','SMASH!','SHATTER!','OBLITERATE!','DESTROYED!'];
+  var lbl=labels[Math.min(Math.floor(intensity*labels.length),labels.length-1)];
+  var st=document.createElement('div');st.className='smtxt';
+  var col=intensity>0.7?'var(--gold)':intensity>0.4?'var(--rose)':'var(--cyan)';
+  st.style.cssText='left:'+window.innerWidth/2+'px;top:'+(window.innerHeight/2)+'px;color:'+col+';font-size:'+(40+power*0.5)+'px;';
+  st.textContent=lbl;document.body.appendChild(st);setTimeout(function(){st.remove();},900);
+  if(power>60)screenShake();if(power>80)screenFlash();
+  var np=Math.floor(power/8);for(var i=0;i<np;i++)spawnP({clientX:window.innerWidth/2+Math.random()*100-50,clientY:window.innerHeight/2});
+  tone(80+power*2,'sawtooth',0.2+intensity*0.4,0.2);
+  addHeal(3+intensity*4);addCombo();
+  document.getElementById('clbl').textContent='HOLD TO CHARGE';
+  if(rS<ROBJS.length){document.getElementById('robj').textContent=ROBJS[rS];document.getElementById('rt').textContent=rS+'/'+ROBJS.length+' destroyed';}
+  else{document.getElementById('robj').textContent='🏆';document.getElementById('rt').textContent='ALL CLEARED!';rDone=true;gamesWon++;document.getElementById('sgw').textContent=gamesWon;checkAch('rage10',true);showToast('💥 RAGE ROOM COMPLETE! Total catharsis! 🔥');chord([392,494,587,698,784]);compSay('You smashed EVERYTHING! ABSOLUTELY LEGENDARY! 🔥',4000);}
+  document.getElementById('scnt').textContent=rS<ROBJS.length?(ROBJS.length-rS)+' left to destroy...':'🔥 ALL DESTROYED!';
+}
+function resetRage(){rS=0;rDone=false;chgVal=0;document.getElementById('robj').textContent=ROBJS[0];document.getElementById('rs').textContent=0;document.getElementById('rt').textContent='Hold & Release';document.getElementById('cfill').style.width='0%';document.getElementById('clbl').textContent='HOLD TO CHARGE';document.getElementById('scnt').textContent='Charge it up ↑';}
+
+// ===== BUBBLES =====
+var THOUGHTS=['Regret','Why Me','What If','Miss them','It hurts','Go back','Alone','The past','Overthink','Self doubt','Sadness','Lost','Broken','Fear','Doubt'];
+var BCOLORS=['rgba(255,45,120,0.28)','rgba(0,245,212,0.22)','rgba(155,93,229,0.28)','rgba(255,209,102,0.22)','rgba(67,97,238,0.28)'];
+var bS=0,bIv=null,bBubs=[];
+function startBubbles(){
+  if(bIv){clearInterval(bIv);bIv=null;document.getElementById('bt').textContent='Paused';return;}
+  bS=0;document.getElementById('bs').textContent=0;document.getElementById('bt').textContent='Floating!';
+  document.getElementById('barena').innerHTML='';bBubs=[];
+  var total=0;
+  bIv=setInterval(function(){
+    total++;spawnBub();
+    if(total>=45){clearInterval(bIv);bIv=null;document.getElementById('bt').textContent='Done!';showToast('🫧 Popped '+bS+' thoughts! Mind is clear! ✨');if(bS>=25){gamesWon++;document.getElementById('sgw').textContent=gamesWon;checkAch('pop25',true);}compSay(bS>=25?'Your mind is so clear! That\'s real healing! ✨':'Keep going, pop those thoughts! 🫧');}
+  },750);
+}
+function spawnBub(){
+  var arena=document.getElementById('barena');
+  var b=document.createElement('div');b.className='bub';
+  var isGold=Math.random()<0.12;
+  var size=50+Math.random()*36;
+  var txt=THOUGHTS[Math.floor(Math.random()*THOUGHTS.length)];
+  var color=isGold?'rgba(255,209,102,0.25)':BCOLORS[Math.floor(Math.random()*BCOLORS.length)];
+  var dur=2.4+Math.random()*2;
+  if(isGold)b.classList.add('gbub');
+  b.style.cssText='width:'+size+'px;height:'+size+'px;background:'+color+';left:'+Math.random()*82+'%;bottom:-'+size+'px;animation-duration:'+dur+'s;font-size:'+(size<70?8:10)+'px;';
+  b.textContent=txt;
+  b.addEventListener('click',function(ev){popBub(this,ev,isGold,false);});
+  arena.appendChild(b);bBubs.push(b);
+  setTimeout(function(){var idx=bBubs.indexOf(b);if(idx>-1)bBubs.splice(idx,1);if(b.parentNode)b.remove();},dur*1000);
+}
+function popBub(b,ev,isGold,isChain){
+  if(!b.parentNode)return;
+  var pts=isGold?5:1;bS+=pts;document.getElementById('bs').textContent=bS;
+  addHeal(isGold?5:2);
+  tone(isGold?800:400+Math.random()*400,'sine',0.15,0.1);
+  spawnP({clientX:ev.clientX,clientY:ev.clientY});
+  if(isGold){var gt=document.createElement('div');gt.className='ctxt';gt.textContent='⭐ x5!';gt.style.cssText='left:'+ev.clientX+'px;top:'+ev.clientY+'px;color:var(--gold);font-size:32px;';document.body.appendChild(gt);setTimeout(function(){gt.remove();},800);}
+  var bRect=b.getBoundingClientRect();var chainCnt=0;
+  bBubs.forEach(function(other){
+    if(other===b||!other.parentNode)return;
+    var oRect=other.getBoundingClientRect();
+    var dist=Math.hypot(bRect.left-oRect.left,bRect.top-oRect.top);
+    if(dist<90){chainCnt++;(function(ob,cc){setTimeout(function(){popBub(ob,ev,ob.classList.contains('gbub'),true);},cc*80);})(other,chainCnt);}
+  });
+  if(chainCnt>=2&&!isChain){var ct=document.createElement('div');ct.className='ctxt';ct.textContent='CHAIN x'+(chainCnt+1)+'!';ct.style.cssText='left:'+ev.clientX+'px;top:'+ev.clientY+'px;';document.body.appendChild(ct);setTimeout(function(){ct.remove();},800);addCombo();}
+  b.style.animation='none';b.style.transform='scale(0)';b.style.transition='transform 0.2s';
+  var idx=bBubs.indexOf(b);if(idx>-1)bBubs.splice(idx,1);
+  setTimeout(function(){if(b.parentNode)b.remove();},200);
+}
+
+// ===== SPIN WHEEL =====
+var WEMS=[
+  {label:'JOY',color:'#ffd166',emoji:'😊',msg:"Feel it — you earned a moment of pure joy today.",react:"I'm so happy for you! 😊"},
+  {label:'RAGE',color:'#ff2d78',emoji:'😤',msg:"Let the rage out. It means you cared deeply. Good.",react:"Release that rage! 😤"},
+  {label:'CRY',color:'#4361ee',emoji:'😭',msg:"Cry freely. Tears wash the soul clean.",react:"It's okay to cry 💙"},
+  {label:'DANCE',color:'#00f5d4',emoji:'🕺',msg:"Move your body RIGHT NOW. Pain can't keep up.",react:"Dance with me! 🕺"},
+  {label:'HOPE',color:'#06d6a0',emoji:'🌱',msg:"Something good is quietly growing. Even now.",react:"There is hope! 🌱"},
+  {label:'POWER',color:'#9b5de5',emoji:'⚡',msg:"You are more powerful than this moment. Claim it.",react:"You're SO powerful! ⚡"},
+  {label:'PEACE',color:'#a8dadc',emoji:'☮️',msg:"Breathe in. Breathe out. This moment is yours.",react:"Find your peace ☮️"},
+  {label:'LOVE',color:'#ff6b9d',emoji:'💛',msg:"You deserve to be loved. Start with yourself.",react:"You deserve all the love 💛"}
+];
+var spinning=false,spinCnt=0,spinAngle=0;
+function drawWheel(angle){
+  var cv=document.getElementById('wcanv'),ctx=cv.getContext('2d');
+  var n=WEMS.length,slice=2*Math.PI/n,r=80,cx=85,cy=85;
+  ctx.clearRect(0,0,170,170);
+  for(var i=0;i<n;i++){
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle+i*slice,angle+(i+1)*slice);ctx.closePath();
+    ctx.fillStyle=WEMS[i].color+'99';ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(angle+(i+0.5)*slice);
+    ctx.font='bold 13px Quicksand';ctx.fillStyle='rgba(255,255,255,0.9)';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(WEMS[i].emoji,r*0.65,0);
+    ctx.font='bold 7px Quicksand';ctx.fillText(WEMS[i].label,r*0.38,0);
+    ctx.restore();
+  }
+  ctx.beginPath();ctx.arc(cx,cy,18,0,2*Math.PI);
+  ctx.fillStyle='rgba(20,18,40,0.9)';ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=1;ctx.stroke();
+}
+drawWheel(0);
+function spinW(){
+  if(spinning)return;spinning=true;spinCnt++;document.getElementById('ss').textContent=spinCnt;
+  document.getElementById('sres').textContent='Spinning...';
+  var tgt=Math.floor(Math.random()*WEMS.length);
+  var slice=2*Math.PI/WEMS.length;
+  var tAngle=-Math.PI/2-slice*tgt-slice/2;
+  var spins=5+Math.random()*4;
+  var totalA=spins*2*Math.PI+(tAngle-spinAngle%(2*Math.PI)+2*Math.PI)%(2*Math.PI)+Math.floor(spins)*2*Math.PI;
+  var dur=3500,start=performance.now(),startA=spinAngle;
+  function animate(now){
+    var p=Math.min((now-start)/dur,1);
+    var ease=p<1?1-Math.pow(1-p,4):1;
+    spinAngle=startA+totalA*ease;drawWheel(spinAngle);
+    if(p<1){requestAnimationFrame(animate);}
+    else{
+      spinning=false;
+      var em=WEMS[tgt];
+      document.getElementById('sres').textContent=em.emoji+' '+em.label+': '+em.msg;
+      showToast('🎡 You got: '+em.label+' '+em.emoji);compSay(em.react,4000);
+      addHeal(5);addCombo();chord([300+tgt*40,380+tgt*40,460+tgt*40]);
+      var wRect=document.getElementById('wcanv').getBoundingClientRect();
+      spawnP({clientX:wRect.left+85,clientY:wRect.top+85});
+      checkAch('spin5',spinCnt>=5);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+// ===== ACHIEVEMENTS =====
+var ACHS=[
+  {id:'first_react',name:'First Feeling',desc:'Express your first emotion',emoji:'🌱',unlocked:false},
+  {id:'combo5',name:'On Fire',desc:'Reach a 5x combo streak',emoji:'🔥',unlocked:false},
+  {id:'combo10',name:'Legendary',desc:'Reach a 10x combo streak',emoji:'👑',unlocked:false},
+  {id:'whack10',name:'Memory Masher',desc:'Score 10+ in Whack Game',emoji:'🔨',unlocked:false},
+  {id:'rage10',name:'Total Catharsis',desc:'Smash all 10 rage objects',emoji:'💥',unlocked:false},
+  {id:'pop25',name:'Mind Clear',desc:'Pop 25 bubbles in one run',emoji:'🫧',unlocked:false},
+  {id:'spin5',name:'Fortune Seeker',desc:'Spin the wheel 5 times',emoji:'🎡',unlocked:false},
+  {id:'stage5',name:'Rising Phoenix',desc:'Reach Stage 5: Reborn',emoji:'🐦‍🔥',unlocked:false},
+  {id:'healed',name:'REBORN',desc:'Reach 100% healing',emoji:'✨',unlocked:false}
+];
+function buildAch(){
+  var g=document.getElementById('achg');g.innerHTML='';
+  ACHS.forEach(function(a){
+    var d=document.createElement('div');d.className='gcard ai'+(a.unlocked?'':' locked');d.id='ai-'+a.id;
+    d.innerHTML='<span class="aico">'+a.emoji+'</span><div class="anm">'+a.name+'</div><div class="adc">'+a.desc+'</div>'+(!a.unlocked?'<div style="position:absolute;top:10px;right:12px;font-size:11px;opacity:0.4;">🔒</div>':'')+'<div class="apbar"><div class="apfill" style="width:'+(a.unlocked?100:0)+'%"></div></div>';
+    g.appendChild(d);
+  });
+}
+function checkAch(id,cond){
+  if(!cond)return;
+  var a=ACHS.find(function(x){return x.id===id;});
+  if(!a||a.unlocked)return;
+  a.unlocked=true;
+  var el=document.getElementById('ai-'+id);
+  if(el){el.classList.remove('locked');el.classList.add('unlocked','popped');el.querySelector('.apfill').style.width='100%';var lk=el.querySelector('[style*="0.4"]');if(lk)lk.remove();}
+  showToast('🏆 ACHIEVEMENT: '+a.name+' '+a.emoji+' UNLOCKED!');
+  chord([523,659,784,1047]);compSay('You unlocked "'+a.name+'"! '+a.emoji,3500);
+  addHeal(8,false);screenFlash();
+}
+buildAch();
+
+// MANIFESTO
+var mObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){document.querySelectorAll('.mi').forEach(function(el,i){setTimeout(function(){el.classList.add('vis');},i*140);});}});},{threshold:0.15});
+mObs.observe(document.getElementById('mlist'));
+
+// REBIRTH
+function doRebirth(ev){
+  healPct=100;document.getElementById('hfill').style.width='100%';document.getElementById('hnum').textContent='100';
+  checkStage();checkAch('healed',true);
+  for(var i=0;i<60;i++){(function(ii){setTimeout(function(){spawnP({clientX:50+Math.random()*(window.innerWidth-100),clientY:50+Math.random()*(window.innerHeight-100)},true);},ii*40);})(i);}
+  chord([261,329,392,523,659,784,1047],55);screenShake();screenFlash();
+  compSay('YOU DID IT! I ALWAYS KNEW YOU WOULD! 🔥✨💛',6000);
+  showToast('✨ REBIRTH COMPLETE. You are now LEGEND tier. 🔥🌟');
+}
+
+// LEAVE PROTECTION
+var allowLeave=false;
+window.addEventListener('beforeunload',function(e){if(allowLeave)return;e.preventDefault();e.returnValue='';return '';});
+document.addEventListener('mousemove',function(e){if(e.clientY<8&&!allowLeave)showLW();});
+function showLW(){document.getElementById('lwpct').textContent=Math.round(healPct)+'% healed. Don\'t abandon yourself now.';document.getElementById('lwarn').classList.add('show');var h=document.getElementById('cheart');h.classList.remove('sad');void h.offsetWidth;h.classList.add('sad');compSay('Please don\'t go... you\'re still healing 🥺',5000);tone(200,'sine',0.5,0.1);}
+function hideLW(){document.getElementById('lwarn').classList.remove('show');compSay('I knew you\'d stay! 💛 Let\'s keep going!',3000);addHeal(3,false);showToast('💪 Welcome back. Your healing continues!');}
+function reallyLeave(){allowLeave=true;window.close();}
+
+// STARS
+var sc=document.getElementById('sCV'),sctx=sc.getContext('2d'),stars=[];
+function rsz(){sc.width=window.innerWidth;sc.height=window.innerHeight;}
+function iSt(){stars=[];for(var i=0;i<130;i++)stars.push({x:Math.random()*sc.width,y:Math.random()*sc.height,r:Math.random()*1.6+0.2,vy:0.07+Math.random()*0.18,c:['#ff2d78','#00f5d4','#ffd166','#9b5de5','#ffffff'][Math.floor(Math.random()*5)],o:0.2+Math.random()*0.5});}
+function aSt(){sctx.clearRect(0,0,sc.width,sc.height);stars.forEach(function(s){sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fillStyle=s.c;sctx.globalAlpha=s.o;sctx.fill();sctx.globalAlpha=1;s.y+=s.vy;if(s.y>sc.height){s.y=0;s.x=Math.random()*sc.width;}});requestAnimationFrame(aSt);}
+window.addEventListener('resize',function(){rsz();iSt();});rsz();iSt();aSt();
+
+// INIT
+checkStage();
+setTimeout(function(){compSay('Hey... you showed up. That already took courage. I\'m here. 💛',4500);},1800);
+setTimeout(function(){showToast('💔 Welcome. Your healing starts now. Hit those buttons!');},2600);
+</script>
+</body>
+</html>
